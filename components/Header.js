@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         marginLeft: 20,
-        marginTop: 30,
+        marginTop: 45,
     },
 
     senai: {

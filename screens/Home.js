@@ -1,4 +1,4 @@
-import {Text, ScrollView} from "react-native";
+import {ScrollView, StyleSheet, View} from "react-native";
 import {useEffect, useState} from "react";
 import CardLivro from "../components/CardLivro";
 import {buscarLivros} from "../services/livros/buscarLivros";
@@ -15,19 +15,41 @@ export default function Home() {
     }, []);
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
            <Header />
 
             <Pesquisa />
 
-            {livros.map(function(livro){
-                return(
-                   <CardLivro livro={livro} />
-                )
-            })}
+            <View style={styles.lista}>
+                {livros.map(function(livro){
+                    return(
+                        <CardLivro key={livro.id} livro={livro} />
+                    )
+                })}
+            </View>
+
         </ScrollView>
     )
 }
+
+
+
+const styles = StyleSheet.create({
+    container:{
+        backgroundColor: "white",
+    },
+
+    lista: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "space-between",
+        padding: 16
+    }
+})
+
+
+
+
 
 
 
