@@ -8,7 +8,7 @@ export async function buscarLivros(setLivros){
 
     resultado = await resultado.json();
 
-    setLivros(resultado.livros);
+    setLivros(resultado.livros || []);
 
 
 }

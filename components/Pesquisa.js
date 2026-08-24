@@ -1,5 +1,4 @@
-import {Text, TextInput, View, StyleSheet} from "react-native";
-
+import {Text, TextInput, View, StyleSheet, ScrollView} from "react-native";
 
 export default function Pesquisa() {
     return (
@@ -11,6 +10,10 @@ export default function Pesquisa() {
             placeholder="Buscar Livros..."
             style={styles.pesquisa}
             />
+
+            <ScrollView horizontal={true}>
+
+            </ScrollView>
         </View>
     )
 }
@@ -26,7 +29,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 25,
         fontWeight: 800,
-        marginTop: 30,
+        marginTop: 15,
     },
 
     subtitulo: {
