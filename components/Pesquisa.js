@@ -1,15 +1,22 @@
-import {Text, TextInput, View, StyleSheet, ScrollView} from "react-native";
+import {Text, TextInput, View, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
 
-export default function Pesquisa() {
+export default function Pesquisa({ termoBusca, setTermoBusca }) {
+
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Encontre seu próximo livro</Text>
             <Text style={styles.subtitulo}>Conhecimento que inspira. Histórias que transformam.</Text>
 
-            <TextInput
-            placeholder="Buscar Livros..."
-            style={styles.pesquisa}
-            />
+            <View style={styles.containerPesquisa}>
+                <TextInput
+                    placeholder="Buscar Livros..."
+                    style={styles.pesquisa}
+                    value={termoBusca}
+                    onChangeText={setTermoBusca}
+                />
+            </View>
 
             <ScrollView horizontal={true}>
 
@@ -37,13 +44,30 @@ const styles = StyleSheet.create({
         color: '#958e8e',
         fontSize: 14.20,
         marginTop: 10,
+    },
 
+    containerPesquisa: {
+        position: 'relative',
+        marginTop: 20,
     },
 
     pesquisa: {
-        marginTop: 20,
         borderRadius: 5,
         borderWidth: 1,
         width: 353,
-    }
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        fontSize: 16,
+    },
+
+    botaoLimpar: {
+        position: 'absolute',
+        right: 15,
+        top: 12,
+    },
+
+    textoLimpar: {
+        fontSize: 16,
+        color: '#666',
+    },
 })

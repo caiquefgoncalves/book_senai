@@ -1,9 +1,11 @@
 import {getToken} from '../token/token';
 
-export async function buscarCategorias(setCategorias) {
+export async function buscarLivroPorId(id, setLivro) {
     const token = getToken();
 
-    var resultado = await fetch("https://apps-api-livros.ucxocw.easypanel.host/categorias", {
+    console.log("Token:", token);
+
+    var resultado = await fetch(`https://apps-api-livros.ucxocw.easypanel.host/livros/${id}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -12,6 +14,6 @@ export async function buscarCategorias(setCategorias) {
     });
 
     resultado = await resultado.json();
-    console.log("Resposta categorias:", resultado);
-    setCategorias(resultado.categorias || []);
+    console.log("Resposta:", resultado);
+    setLivro(resultado.livro || resultado);
 }

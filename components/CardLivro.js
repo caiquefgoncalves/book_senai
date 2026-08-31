@@ -1,6 +1,9 @@
-import {Image, Text, View, StyleSheet, Button, Pressable} from "react-native";
+import {Image, Text, View, StyleSheet, Pressable} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 
 export default function CardLivro({ livro }) {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.cardContainer}>
             <Image
@@ -10,7 +13,10 @@ export default function CardLivro({ livro }) {
             <Text style={styles.titulo}>{livro.titulo}</Text>
             <Text style={styles.subtitulo}>{livro.categoria} - {livro.autor}</Text>
             <Text style={styles.descricao}>{livro.descricao}</Text>
-            <Pressable style={styles.botao}>
+            <Pressable
+                style={styles.botao}
+                onPress={() => navigation.navigate('DetalhesLivros', { livroId: livro.id })}
+            >
                 <Text style={styles.escritaBotao}>Ver Detalhes</Text>
             </Pressable>
         </View>
@@ -19,14 +25,13 @@ export default function CardLivro({ livro }) {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        width: '48%',
+        width: '47%',
         marginBottom: 16,
         borderRadius: 10,
         padding: 12,
         alignItems: 'center',
         borderColor: '#bfbaba',
         borderWidth: 1,
-
     },
     imagem: {
         width: '100%',
@@ -52,7 +57,6 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         marginTop: 4,
     },
-
     botao: {
         marginTop: 8,
         backgroundColor: 'white',
@@ -62,11 +66,10 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 10,
     },
-
     escritaBotao: {
         fontSize: 12,
         color: '#1d1d9a',
         textAlign: 'center',
-        fontWeight: 800,
+        fontWeight: '800',
     }
-})
+});
