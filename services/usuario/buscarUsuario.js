@@ -1,10 +1,9 @@
 import {getToken} from "../usuario/usuarioStorage";
 
-export async function buscarLivros(setLivros) {
+export async function buscarUsuario(setUsuarios) {
     const token = await getToken();
-    console.log("Token usado:", token);
 
-    var resultado = await fetch("https://apps-api-livros.ucxocw.easypanel.host/livros", {
+    var resultado = await fetch("https://apps-api-livros.ucxocw.easypanel.host/usuarios", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -13,6 +12,6 @@ export async function buscarLivros(setLivros) {
     });
 
     resultado = await resultado.json();
-    console.log("Resposta livros:", resultado);
-    setLivros(resultado.livros || []);
+    console.log("Usuários:", resultado);
+    setUsuarios(resultado.usuarios || []);
 }

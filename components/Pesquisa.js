@@ -3,7 +3,6 @@ import {Text, TextInput, View, StyleSheet, ScrollView, TouchableOpacity} from "r
 export default function Pesquisa({ termoBusca, setTermoBusca }) {
 
 
-
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Encontre seu próximo livro</Text>
@@ -30,6 +29,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         marginLeft: 20,
+        marginRight: 20,
     },
 
     titulo: {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     pesquisa: {
         borderRadius: 5,
         borderWidth: 1,
-        width: 353,
+        width: '100%',
         paddingHorizontal: 15,
         paddingVertical: 10,
         fontSize: 16,

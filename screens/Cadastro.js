@@ -8,7 +8,6 @@ export default function Cadastro({ navigation }) {
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [usuario, setUsuario] = useState(null);
-    const [mostrarSenha, setMostrarSenha] = useState(false);
 
     const handleCadastro = async () => {
         if (!nome || !email || !senha || !confirmarSenha) {
@@ -23,7 +22,7 @@ export default function Cadastro({ navigation }) {
 
         try {
             await fazerCadastro(nome, email, senha, setUsuario);
-            Alert.alert('Sucesso', 'Cadastro realizado! Faça login.', [
+            Alert.alert('Sucesso', 'Cadastro realizado!', [
                 {
                     text: 'OK',
                     onPress: () => navigation.navigate('Login')
@@ -64,24 +63,14 @@ export default function Cadastro({ navigation }) {
                 />
 
                 <Text style={styles.label}>Senha</Text>
-                <View style={styles.containerSenha}>
-                    <TextInput
-                        style={styles.inputSenha}
-                        placeholder="Crie uma senha"
-                        value={senha}
-                        onChangeText={setSenha}
-                        secureTextEntry={!mostrarSenha}
-                        placeholderTextColor="#999"
-                    />
-                    <TouchableOpacity
-                        style={styles.botaoMostrarSenha}
-                        onPress={() => setMostrarSenha(!mostrarSenha)}
-                    >
-                        <Text style={styles.textoMostrarSenha}>
-                            {mostrarSenha ? 'Ocultar' : 'Mostrar'}
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Crie uma senha"
+                    value={senha}
+                    onChangeText={setSenha}
+                    secureTextEntry
+                    placeholderTextColor="#999"
+                />
 
                 <Text style={styles.label}>Confirmar Senha</Text>
                 <TextInput
@@ -89,7 +78,7 @@ export default function Cadastro({ navigation }) {
                     placeholder="Confirme a senha"
                     value={confirmarSenha}
                     onChangeText={setConfirmarSenha}
-                    secureTextEntry={!mostrarSenha}
+                    secureTextEntry
                     placeholderTextColor="#999"
                 />
 
@@ -150,30 +139,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 20,
         backgroundColor: '#fafafa',
-    },
-    containerSenha: {
-        position: 'relative',
-        marginBottom: 20,
-    },
-    inputSenha: {
-        borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 8,
-        paddingHorizontal: 15,
-        paddingVertical: 12,
-        fontSize: 16,
-        backgroundColor: '#fafafa',
-        paddingRight: 80,
-    },
-    botaoMostrarSenha: {
-        position: 'absolute',
-        right: 15,
-        top: 15,
-    },
-    textoMostrarSenha: {
-        fontSize: 14,
-        color: '#1d1d9a',
-        fontWeight: '600',
     },
     botao: {
         backgroundColor: '#1d1d9a',

@@ -4,8 +4,6 @@ export async function fazerCadastro(nome, email, senha, setUsuario) {
     ];
 
     for (const endpoint of endpoints) {
-        console.log("Tentando endpoint:", endpoint);
-
         try {
             var resultado = await fetch(endpoint, {
                 method: "POST",
@@ -23,9 +21,6 @@ export async function fazerCadastro(nome, email, senha, setUsuario) {
 
             if (resultado.ok) {
                 resultado = await resultado.json();
-                console.log("Sucesso no endpoint:", endpoint);
-                console.log("Resposta:", resultado);
-
                 setUsuario(resultado.usuario || resultado);
                 return resultado;
             }

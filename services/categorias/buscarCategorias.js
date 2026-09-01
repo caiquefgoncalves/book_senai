@@ -1,7 +1,8 @@
-import {getToken} from '../token/token';
+import {getToken} from "../usuario/usuarioStorage";
 
 export async function buscarCategorias(setCategorias) {
-    const token = getToken();
+    const token = await getToken();
+    console.log("Token usado:", token);
 
     var resultado = await fetch("https://apps-api-livros.ucxocw.easypanel.host/categorias", {
         method: "GET",

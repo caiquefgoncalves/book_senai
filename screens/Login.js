@@ -1,27 +1,40 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, Alert} from "react-native";
+import {getToken} from "../services/usuario/usuarioStorage";
+import {getBiometria} from "../services/autenticacao/biometria";
 import {fazerLogin} from "../services/autenticacao/fazerLogin";
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [usuario, setUsuario] = useState(null);
     const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [temToken, setTemToken] = useState(false);
 
-    const handleLogin = async () => {
-        if (!email || !senha) {
-            Alert.alert('Erro', 'Preencha todos os campos');
-            return;
-        }
+    useEffect(() => {
+        navigation.addListener("focus", async function () {
+            var token = await getToken();
+            setTemToken(!!token);
+        });
+    }, [navigation]);
 
+    async function entrar() {
         try {
-            await fazerLogin(email, senha, setUsuario);
-            navigation.navigate('Home');
-        } catch (error) {
-            console.log("Erro no login:", error);
-            Alert.alert('Erro', 'Email ou senha incorretos');
+            await fazerLogin(email, senha, () => {})
+            navigation.replace("Home");
+        } catch (e) {
+            Alert.alert(e.message || 'Email ou senha incorretos')
         }
-    };
+    }
+
+    async function entrarComBiometria() {
+        var bio = await getBiometria();
+
+        if (bio) {
+            navigation.replace("Home");
+        } else {
+            Alert.alert('Erro', 'Biometria não reconhecida');
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -64,10 +77,19 @@ export default function Login({ navigation }) {
 
                 <TouchableOpacity
                     style={styles.botao}
-                    onPress={handleLogin}
+                    onPress={entrar}
                 >
                     <Text style={styles.textoBotao}>Entrar</Text>
                 </TouchableOpacity>
+
+                {temToken && (
+                    <TouchableOpacity
+                        style={styles.botaoBiometria}
+                        onPress={entrarComBiometria}
+                    >
+                        <Text style={styles.textoBiometria}>Entrar com Biometria</Text>
+                    </TouchableOpacity>
+                )}
 
                 <TouchableOpacity
                     style={styles.linkCadastro}
@@ -158,6 +180,20 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    botaoBiometria: {
+        backgroundColor: '#e8e8ff',
+        paddingVertical: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginTop: 10,
+        borderWidth: 1,
+        borderColor: '#1d1d9a',
+    },
+    textoBiometria: {
+        color: '#1d1d9a',
+        fontSize: 16,
+        fontWeight: '600',
     },
     linkCadastro: {
         marginTop: 20,
